@@ -2,6 +2,7 @@ const express = require('express');
 const hbs = require('hbs');
 const fs = require('fs');
 
+const port = process.env.PORT || 3000;
 var app = express();
 
 hbs.registerPartials(__dirname + '/views/partials'); // absolute path
@@ -21,9 +22,9 @@ app.use((req, res, next) => {
   next(); // need this, or nothing loads
 });
 
-app.use((req, res, next) => {
-  res.render('maintenance.hbs'); // next never called, so app.get() isn't called
-});
+// app.use((req, res, next) => {
+//   res.render('maintenance.hbs'); // next never called, so app.get() isn't called
+// });
 
 // this is middleware, app.use()
 app.use(express.static(__dirname + '/public')); // in the wrapper function, __dirname
@@ -56,6 +57,6 @@ app.get('/bad', (req, res) => {
   })
 })
 
-app.listen(3000, () => {
-  console.log('The server is up on port 3000');
+app.listen(port, () => {
+  console.log(`The server is up on port ${port}`);
 });
